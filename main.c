@@ -54,6 +54,35 @@ if (strcmp(line, "exit") == 0) { //compare
     exit(0);
 }
 
+    char *args[100];
+    int i = 0;
+    char *rest = line;
+    char *token;
+    while ((token = strsep(&rest, " \t")) != NULL) {
+        if (*token == '\0') continue;
+        args[i++] = token;
+    }
+    args[i] = NULL;
+
+    
+if (args[0]!=NULL && strcmp(args[0], "cd") == 0) { 
+
+int count = 0;
+
+for(int j =1; args[j]!=NULL; j++) count++;
+
+if(count != 1){
+    print_error();
+    continue; //skip to nextt command
+}
+
+if(chdir(args[1]) != 0){
+    print_error();
+}
+
+    continue;
+}
+
 
 }
 return 0;
