@@ -17,6 +17,11 @@ char *line = NULL;
 size_t len =0;
 ssize_t nread;
 
+char *paths[100];
+int path_count;
+
+paths[0]="/bin";
+path_count = 1;
 
 if(argc==1){
     interactive=1;
@@ -64,7 +69,7 @@ if (strcmp(line, "exit") == 0) { //compare
     }
     args[i] = NULL;
 
-    
+    // cd
 if (args[0]!=NULL && strcmp(args[0], "cd") == 0) { 
 
 int count = 0;
@@ -83,6 +88,31 @@ if(chdir(args[1]) != 0){
     continue;
 }
 
+
+//path
+
+
+
+if (args[0]!=NULL && strcmp(args[0], "path") == 0) { 
+
+
+
+if (args[1] == NULL ){
+    path_count=0;
+    paths[0]=NULL;
+    continue;
+}
+
+path_count=0;
+for(int j =1; args[j] != NULL; j++){
+    paths[path_count++] = strdup(args[j]); 
+}
+
+for (int i = 0; i < path_count; i++)
+    printf("%s\n", paths[i]);
+
+
+}
 
 }
 return 0;
