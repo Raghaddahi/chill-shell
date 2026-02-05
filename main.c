@@ -13,6 +13,13 @@ void print_error() {
 
 int main(int argc, char *argv[]) {
 
+  printf("                           \n");
+  printf(" ▄▄▄▄ ▄▄ ▄▄ ▄▄ ▄▄    ▄▄    \n");
+  printf("██▀▀▀ ██▄██ ██ ██    ██    \n");
+  printf("▀████ ██ ██ ██ ██▄▄▄ ██▄▄▄ \n");
+  printf("                           \n");
+  printf("                           \n");
+
   FILE *input;
   int interactive;
   char *line = NULL;
@@ -45,8 +52,7 @@ int main(int argc, char *argv[]) {
 
   // random emoji
 
-  const char *emojis[] = {"🌊", "❄️", "😌", "🎧", "🌿", "🛋️", "🎶"};
-
+  const char *emojis[] = {"🌊", "❄️", "😌", "🎧", "🌿"};
   srand(time(NULL));
   int count = sizeof(emojis) / sizeof(emojis[0]);
 
