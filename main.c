@@ -44,7 +44,7 @@ int main(int argc, char *argv[]) {
 
   while (1) {
     if (interactive) {
-      printf("chill> ");
+      printf("🌊 chill> ");
       fflush(stdout);
     }
 
