@@ -1,3 +1,4 @@
+#include <fcntl.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -117,6 +118,23 @@ int main(int argc, char *argv[]) {
       continue;
     }
 
+    // redirection
+    char *redirect_file = NULL;
+
+    for (int j = 1; args[j] != NULL; j++) {
+      if (strcmp(args[j], ">") == 0) {
+
+        if (args[j + 1] == NULL || args[j + 2] != NULL) {
+          print_error();
+          redirect_file = NULL;
+        } else {
+          args[j] = NULL;
+          redirect_file = args[j + 1];
+        }
+        break;
+      }
+    }
+
     pid_t pid = fork();
 
     if (pid < 0) {
@@ -124,6 +142,19 @@ int main(int argc, char *argv[]) {
     }
 
     if (pid == 0) {
+
+      if (redirect_file != NULL) {
+        int fd = open(redirect_file, O_WRONLY | O_CREAT | O_TRUNC, 0644);
+
+        if (fd == -1) {
+          print_error();
+        }
+
+        dup2(fd, STDOUT_FILENO);
+        dup2(fd, STDERR_FILENO);
+        close(fd);
+      }
+
       // search path and exec
       char full_path[1024];
 
@@ -145,6 +176,9 @@ int main(int argc, char *argv[]) {
     if (pid > 0) {
       wait(NULL);
     }
+  }
+  if (argc == 2) {
+    fclose(input);
   }
   return 0;
 }
