@@ -3,6 +3,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <sys/wait.h>
+#include <time.h>
 #include <unistd.h>
 
 void print_error() {
@@ -42,9 +43,18 @@ int main(int argc, char *argv[]) {
     }
   }
 
+  // random emoji
+
+  const char *emojis[] = {"🌊", "❄️", "😌", "🎧", "🌿", "🛋️", "🎶"};
+
+  srand(time(NULL));
+  int count = sizeof(emojis) / sizeof(emojis[0]);
+
+  int index = rand() % count;
+
   while (1) {
     if (interactive) {
-      printf("🌊 chill> ");
+      printf("%s chill> ", emojis[index]);
       fflush(stdout);
     }
 
