@@ -103,15 +103,19 @@ int main(int argc, char *argv[]) {
         for (int j = 1; args[j] != NULL; j++)
           args_count++;
 
-        if (args_count != 1) {
+        if (args_count > 1) {
           print_error();
           continue; // skip to nextt command
+        }
+
+        if (args[1] == NULL || strcmp(args[1], "~") == 0) {
+          args[1] = getenv("HOME");
         }
 
         if (chdir(args[1]) != 0) {
           print_error();
         }
-
+        cmd_str = strtok_r(NULL, "&", &saveptr1);
         continue;
       }
 
@@ -134,6 +138,7 @@ int main(int argc, char *argv[]) {
         for (int i = 0; i < path_count; i++)
           printf("%s\n", paths[i]);
 
+        cmd_str = strtok_r(NULL, "&", &saveptr1);
         continue;
       }
 
